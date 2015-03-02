@@ -58,8 +58,8 @@ public class Client {
 			
 			ResourceSupport resourceSupport = response.getBody();
 			
-			System.out.println(resourceSupport);*/
-			
+			System.out.println(resourceSupport);
+			*/
 		}catch(Exception e){
 			e.printStackTrace();
 		}
