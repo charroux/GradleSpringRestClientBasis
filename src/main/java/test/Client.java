@@ -1,6 +1,7 @@
 package test;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -31,35 +32,64 @@ public class Client {
 	    
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 			
-			URI uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car/AA11AA");
+			// get a list of unrented cars
+			URI uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car");
+			
+			ResponseEntity<ArrayList> responseList = restTemplate.exchange(uri , HttpMethod.GET, entity, ArrayList.class);
+			HttpStatus statusCode = responseList.getStatusCode();
+			if(statusCode != HttpStatus.OK){
+				System.out.println("Erreur");
+			}
+			
+			ArrayList carList = responseList.getBody();
+			System.out.println("Unrented cars: " + carList);
+			
+			// get a car specifications
+			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car/AA11AA");
 			
 			ResponseEntity<CarDTO> response = restTemplate.exchange(uri , HttpMethod.GET, entity, CarDTO.class);
-			HttpStatus statusCode = response.getStatusCode();
+			statusCode = response.getStatusCode();
 			if(statusCode != HttpStatus.OK){
 				System.out.println("Erreur");
 			}
 			
 			CarDTO car = response.getBody();
+			System.out.println("Car specifications: " + car);
 			
-			System.out.println(car);
+			// rent a car
+			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car/AA11AA");
+			restTemplate.delete(uri);
 			
-			/*HttpHeaders headers = new HttpHeaders();
-	    	headers.setContentType(MediaType.APPLICATION_JSON);
-	    
-			HttpEntity<String> entity = new HttpEntity<String>(headers);
+			// display cars list
+			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car");
 			
-			URI uri = new URI("http://localhost:8080/GradleSpringRest/myRent/entryPoint");
-			
-			ResponseEntity<ResourceSupport> response = restTemplate.exchange(uri , HttpMethod.GET, entity, ResourceSupport.class);
-			HttpStatus statusCode = response.getStatusCode();
+			responseList = restTemplate.exchange(uri , HttpMethod.GET, entity, ArrayList.class);
+			statusCode = responseList.getStatusCode();
 			if(statusCode != HttpStatus.OK){
 				System.out.println("Erreur");
 			}
 			
-			ResourceSupport resourceSupport = response.getBody();
+			carList = responseList.getBody();
+			System.out.println("Unrented cars: " + carList);
 			
-			System.out.println(resourceSupport);
-			*/
+			
+			// get back a car
+			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car/AA11AA");
+			restTemplate.put(uri, null);
+			
+			// display cars list
+			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car");
+						
+			responseList = restTemplate.exchange(uri , HttpMethod.GET, entity, ArrayList.class);
+			statusCode = responseList.getStatusCode();
+			if(statusCode != HttpStatus.OK){
+				System.out.println("Erreur");
+			}
+						
+			carList = responseList.getBody();
+			System.out.println("Unrented cars: " + carList);
+			
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
