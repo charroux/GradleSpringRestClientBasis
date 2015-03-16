@@ -57,6 +57,7 @@ public class Client {
 			System.out.println("Car specifications: " + car);
 			
 			// rent a car
+			System.out.println("Renting car: AA11AA");
 			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car/AA11AA");
 			restTemplate.delete(uri);
 			
@@ -74,6 +75,7 @@ public class Client {
 			
 			
 			// get back a car
+			System.out.println("Get back car: AA11AA" );
 			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car/AA11AA");
 			restTemplate.put(uri, null);
 			
