@@ -23,6 +23,7 @@ public class Client {
 	public static void main(String[] args) {
 		
 		try{
+			
 		
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			RestTemplate restTemplate = (RestTemplate)context.getBean("restTemplate");
