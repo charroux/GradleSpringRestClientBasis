@@ -56,40 +56,7 @@ public class Client {
 			CarDTO car = response.getBody();
 			System.out.println("Car specifications: " + car);
 			
-			// rent a car
-			System.out.println("Renting car: AA11AA");
-			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car/AA11AA");
-			restTemplate.delete(uri);
 			
-			// display cars list
-			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car");
-			
-			responseList = restTemplate.exchange(uri , HttpMethod.GET, entity, ArrayList.class);
-			statusCode = responseList.getStatusCode();
-			if(statusCode != HttpStatus.OK){
-				System.out.println("Erreur");
-			}
-			
-			carList = responseList.getBody();
-			System.out.println("Unrented cars: " + carList);
-			
-			
-			// get back a car
-			System.out.println("Get back car: AA11AA" );
-			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car/AA11AA");
-			restTemplate.put(uri, null);
-			
-			// display cars list
-			uri = new URI("http://localhost:8080/GradleSpringRestBasis-master/car");
-						
-			responseList = restTemplate.exchange(uri , HttpMethod.GET, entity, ArrayList.class);
-			statusCode = responseList.getStatusCode();
-			if(statusCode != HttpStatus.OK){
-				System.out.println("Erreur");
-			}
-						
-			carList = responseList.getBody();
-			System.out.println("Unrented cars: " + carList);
 			
 			
 		}catch(Exception e){
